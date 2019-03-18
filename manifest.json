@@ -1,0 +1,14 @@
+{
+  "name": "Github-TODO",
+  "version": "1.0",
+  "description": "Utilities for TODO in github issue.",
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*"],
+      "css": ["main.css"],
+      "js": ["vendor/jquery.js", "main.js"]
+    }
+  ],
+  "permissions": ["tabs"]
+}

@@ -1,0 +1,22 @@
+#recs-todo-remaining-time{
+  position: fixed;
+  top: 70px;
+  left: 10px;
+  z-index: 1000;
+  background-color: rgba(200, 200, 200, 0.4);
+  padding: 20px 40px;
+  border-radius: 8px;
+}
+
+#recs-todo-remaining-time .title{
+  font-size: 110%;
+  font-weight: bold;
+}
+
+#recs-todo-remaining-time ul{
+  list-style-position: inside;
+}
+
+#recs-todo-remaining-time ul li{
+  white-space: nowrap;
+}
