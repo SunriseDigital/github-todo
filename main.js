@@ -47,9 +47,9 @@ function clacRemainingTime(){
 
   return [...document.querySelectorAll('.task-list-item')]
     .filter(elem => !elem.querySelector('input[type=checkbox]').checked)
-    .map(elem => elem.innerText.match(/\[([0-9]+?)\]/))
+    .map(elem => elem.innerText.match(/\[([0-9.]+?)\]/))
     .filter(matches => matches)
-    .map(matches => parseInt(matches[1], 10))
+    .map(matches => parseFloat(matches[1], 10))
     .reduce((val, sum) => sum += val, 0);
 }
 
