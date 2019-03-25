@@ -1,10 +1,11 @@
+const initial = {total: 0, remaining: 0}
 $(() => {
   let prevTime = clacRemainingTime();
   showRemainingTime(prevTime)
 
   setInterval(e => {
     const currentTime = clacRemainingTime();
-    if(prevTime != currentTime){
+    if(!prevTime || !currentTime || Object.keys(initial).some(key => prevTime[key] != currentTime[key])){
       prevTime = currentTime
       showRemainingTime(currentTime)
     }
@@ -28,12 +29,12 @@ function showRemainingTime(time){
   $ul = $('<ul></ul>');
 
   [...Array(6).keys()].map(n => n += 2).forEach(num => {
-    $ul.append($(`<li>${num}h: ${round(time/num, 2)}日</li>`))
+    $ul.append($(`<li>${num}h: ${round(time.remaining/num, 2)}日</li>`))
   })
 
 
-  
-  $result.append($(`<p class="title">残り${time}時間</p>`)).append($ul)
+  const percent = time.total !== 0 ? round(time.remaining / time.total * 100, 2) : 0
+  $result.append($(`<p class="title">残り${time.remaining}/${time.total}時間 - ${percent}%</p>`)).append($ul)
 }
 
 /**
@@ -46,11 +47,26 @@ function clacRemainingTime(){
   }
 
   return [...document.querySelectorAll('.task-list-item')]
-    .filter(elem => !elem.querySelector('input[type=checkbox]').checked)
-    .map(elem => elem.innerText.match(/\[([0-9.]+?)\]/))
-    .filter(matches => matches)
-    .map(matches => parseFloat(matches[1], 10))
-    .reduce((val, sum) => sum += val, 0);
+    .map(elem => {
+      return {
+        matches: elem.innerText.match(/\[([0-9.]+?)\]/),
+        checked: elem.querySelector('input[type=checkbox]').checked
+      }
+    })
+    .filter(data => data.matches)
+    .map(data => {
+      return {
+        time: parseFloat(data.matches[1], 10),
+        checked: data.checked
+      }
+    })
+    .reduce((sum, data) => {
+      sum.total += data.time
+      if(!data.checked){
+        sum.remaining += data.time
+      }
+      return sum
+    }, {...initial});
 }
 
 function round(val, precision){
