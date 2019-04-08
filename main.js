@@ -42,7 +42,7 @@ function showRemainingTime(time){
  * プルリクエストのページじゃないときはundefinedを返す。
  */
 function clacRemainingTime(){
-  if(!location.pathname.match(/\/pull\/[0-9]+$/)){
+  if(!location.pathname.match(/\/(pull|issues)\/[0-9]+$/)){
     return undefined
   }
 
