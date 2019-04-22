@@ -34,7 +34,11 @@ function showRemainingTime(time){
 
 
   const percent = time.total !== 0 ? round(time.remaining / time.total * 100, 2) : 0
-  $result.append($(`<p class="title">残り${time.remaining}/${time.total}時間 - ${percent}%</p>`)).append($ul)
+  $result.append($(`<p class="title">残り${time.remaining}/${time.total}時間 - ${percent}%</p>`))
+  if($('.labels [title=outsource]').length > 0){
+    $result.append($(`<p class="price">${(time.total * 3000).toLocaleString()}円〜${(time.total * 5000).toLocaleString()}円</p>`))
+  }
+  $result.append($ul)
 }
 
 /**

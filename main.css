@@ -21,3 +21,8 @@
 #recs-todo-remaining-time ul li{
   white-space: nowrap;
 }
+
+#recs-todo-remaining-time .price{
+  text-align: right;
+  margin-top: -10px;
+}
