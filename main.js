@@ -32,13 +32,28 @@ function showRemainingTime(time){
     $ul.append($(`<li>${num}h: ${round(time.remaining/num, 2)}日</li>`))
   })
 
-
   const percent = time.total !== 0 ? round(time.remaining / time.total * 100, 2) : 0
   $result.append($(`<p class="title">残り${time.remaining}/${time.total}時間 - ${percent}%</p>`))
+
+  var promise = Promise.resolve()
   if($('.labels [title=outsource]').length > 0){
-    $result.append($(`<p class="price">${(time.total * 3000).toLocaleString()}円〜${(time.total * 5000).toLocaleString()}円</p>`))
+    promise = promise.then(() => {
+      return new Promise((resolve, reject) => {
+        chrome.storage.sync.get({
+          outsourceMinAmount: window.GithubTodoConstans.outsourceMinAmount,
+          outsourceMaxAmount: window.GithubTodoConstans.outsourceMaxAmount
+        }, function(items) {
+          $result.append(
+            $(`<p class="price">${(time.total * items.outsourceMinAmount).toLocaleString()}円〜${(time.total * items.outsourceMaxAmount).toLocaleString()}円</p>`)
+          )
+
+          resolve()
+        })
+      })
+    })
   }
-  $result.append($ul)
+
+  promise.then(() => $result.append($ul))
 }
 
 /**

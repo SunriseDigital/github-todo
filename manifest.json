@@ -7,8 +7,12 @@
     {
       "matches": ["https://github.com/*"],
       "css": ["main.css"],
-      "js": ["vendor/jquery.js", "main.js"]
+      "js": ["vendor/jquery.js", "constants.js", "main.js"]
     }
   ],
-  "permissions": ["tabs"]
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "permissions": ["tabs", "storage"]
 }
