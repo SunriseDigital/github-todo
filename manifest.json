@@ -7,7 +7,7 @@
     {
       "matches": ["https://github.com/*"],
       "css": ["main.css"],
-      "js": ["vendor/jquery.js", "constants.js", "main.js"]
+      "js": ["vendor/jquery.js", "vendor/date-fns.js", "constants.js", "main.js"]
     }
   ],
   "options_ui": {

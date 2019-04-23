@@ -5,14 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>github-todoオプション</title>
+  <style>
+    body{
+      font-size: 16px;
+    }
+
+    .form-group{
+      margin-bottom: 20px;
+    }
+
+    .form-group h1{
+      margin-bottom: 5px;
+    }
+
+    .form-control{
+      display: inline-block;
+      padding: .375rem .75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #495057;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      border-radius: .25rem;
+      transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
+    .btn{
+      display: inline-block;
+      font-weight: 400;
+      color: #212529;
+      text-align: center;
+      vertical-align: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      background-color: transparent;
+      border: 1px solid transparent;
+      padding: .375rem .75rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      border-radius: .25rem;
+      transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
+    .btn-danger {
+      color: #fff;
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+  </style>
 </head>
 <body>
-  <h1>outsource単価</h1>
-  <div style="margin-bottom: 10px;">
-    <input type="text" id="outsourceMinAmount">円/1h〜
-    <input type="text" id="outsourceMaxAmount">円/1h
+  <div class="form-group">
+    <h1>outsource単価</h1>
+    <input class="form-control" type="text" id="outsourceMinAmount">円/1h〜
+    <input class="form-control" type="text" id="outsourceMaxAmount">円/1h
   </div>
-  <button id="save">保存</button><span id="status"></span>
+  <div class="form-group">
+    <h1>outsource作業時間</h1>
+    <input class="form-control" type="text" id="outsourceWorkHoursPerDay">時間/1日<br>
+  </div>
+  <button class="btn btn-danger" id="save">保存</button><span id="status"></span>
   <script src="constants.js"></script>
   <script src="options.js"></script>
 </body>

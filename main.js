@@ -36,15 +36,21 @@ function showRemainingTime(time){
   $result.append($(`<p class="title">残り${time.remaining}/${time.total}時間 - ${percent}%</p>`))
 
   var promise = Promise.resolve()
+  
   if($('.labels [title=outsource]').length > 0){
     promise = promise.then(() => {
       return new Promise((resolve, reject) => {
-        chrome.storage.sync.get({
-          outsourceMinAmount: window.GithubTodoConstans.outsourceMinAmount,
-          outsourceMaxAmount: window.GithubTodoConstans.outsourceMaxAmount
-        }, function(items) {
+        chrome.storage.sync.get(window.GithubTodoConstans, function(items) {
           $result.append(
-            $(`<p class="price">${(time.total * items.outsourceMinAmount).toLocaleString()}円〜${(time.total * items.outsourceMaxAmount).toLocaleString()}円</p>`)
+            $(`<p class="note">${(time.total * items.outsourceMinAmount).toLocaleString()}円〜${(time.total * items.outsourceMaxAmount).toLocaleString()}円</p>`)
+          )
+
+          // +6は募集期間。募集期間は5日の登録がおすすめと言うことなので一日余裕を持たせてます。
+          const days = Math.ceil(time.total / items.outsourceWorkHoursPerDay) + 6
+          const deliveryDate  = dateFns.addDays(Date.now(), days)
+
+          $result.append(
+            $(`<p class="note">納期:${dateFns.format(deliveryDate, 'M月D日(ddd)')}<br>＊募集期間込み${items.outsourceWorkHoursPerDay}h/1day計算</p>`)
           )
 
           resolve()
