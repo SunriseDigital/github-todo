@@ -37,7 +37,7 @@ function showRemainingTime(time){
 
   var promise = Promise.resolve()
   
-  if($('.labels [title=outsource]').length > 0){
+  if($('.labels [data-name=outsource]').length > 0){
     promise = promise.then(() => {
       return new Promise((resolve, reject) => {
         chrome.storage.sync.get(window.GithubTodoConstans, function(items) {
